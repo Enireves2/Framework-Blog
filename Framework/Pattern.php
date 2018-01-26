@@ -16,7 +16,7 @@ class Pattern {
     
     // Renvoie la valeur d'un paramètre de configuration.
     public static function get($name, $defaultValue = null) {
-	if (isset(self::getParams() [$name])) {
+	if (isset(self::getParams()[$name])) {
 	    $value = self::getParams() [$name];
 	}
 	else {
@@ -33,7 +33,7 @@ class Pattern {
 		$filePath = "Config/dev.ini";
 	    }
 	    if (!file_exists($filePath)) {
-		throw new ("Aucun fichier de configuration trouvé");
+		throw new Exception ("Aucun fichier de configuration trouvé");
 	    }
 	    else {
 		self::$params = parse_ini_file($filePath);

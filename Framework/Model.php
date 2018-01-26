@@ -28,7 +28,7 @@ abstract class Model {
 	    
     protected function executeRequest($sql, $params = null) {
 	if ($params == null) {
-	    $result = self::getBD()->query($sql); // Exécution directe.
+	    $result = self::getBd()->query($sql); // Exécution directe.
 	}
 	else {
 	    $result = self::getBd()->prepare($sql); // Requête préparée.
@@ -43,7 +43,7 @@ abstract class Model {
     private static function getBd() {
 	if (self::$bd === null) {
 	    // Récupération des paramè§tres de configuration BD.
-	    $dns = Pattern::get("dsn");
+	    $dsn = Pattern::get("dsn");
 	    $login = Pattern::get("login");
 	    $mdp = Pattern::get("mdp");
 	    

@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Pattern.php';
+
 class View {
     // Nom du fichier associé à la vue.
     // Attributs
@@ -8,12 +10,14 @@ class View {
     // Titre de la vue (défini dans le fichier view)
     private $title;
     
-    // Méthodes
-    public function __construct($action) {
-	
-    // Détermination du nom du fichier vue à partir de l'action.
-	$this->file = "View/View" . $action . ".php";
-    }
+    public function __construct($action, $controler = "") {
+
+	  $file = "View/";
+	  if ($controler != "") {
+	      $file = $file . $controler . "/";
+	  }
+	  $this->file = $file . $action . ".php";
+      }
     
     // Génère et affiche la vue.
     public function generate($data) {
@@ -21,8 +25,10 @@ class View {
     // Génération de la partie spécifique de la vue.
 	$content = $this->generateFile($this->file, $data);
 	
+	$racineWeb = Pattern::get("racineWeb", "/");
+	
 	// Génération du gabart commun utilisant la partie spécifique.
-	$view = $this->generateFile('View/Template.php', array('title' => $this->title, 'content' =>$content));
+	$view = $this->generateFile('View/Template.php', array('title' => $this->title, 'content' =>$content, 'racineWeb' => $racineWeb));
 	// Renvoi de la vue au navigateur.
 	echo $view;
     }
@@ -47,26 +53,6 @@ class View {
 	else {
 	    throw new Exception("Fichier '$file' introuvable");
 	}
-    }
-    
-    public function __construct($action, $controler = "") {
-	
-	$file = "View/";
-	if ($controler != "") {
-	    $file = $file . $controler . "/";
-	}
-	$this->file = $file . $action . ".php";
-    }
-    
-    public function generate($data) {
-	
-	$content = $this->generateFile($this->file, $data);
-	
-	$racineWeb = Pattern::get("racineWeb", "/");
-	
-	$view = $this->generateFile('View/Template.php', array('title' => $this->title, 'content' =>$contenu, 'racineWeb' => $racineWeb));
-    echo $view;
-	
     }
     
     // Nettoie une valeur insérée dans une page Html.

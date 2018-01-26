@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Request.php';
+require_once 'Controler.php';
 require_once 'View.php';
 
 class Rooter {
@@ -9,10 +10,8 @@ class Rooter {
 	try {
 	    // Fusion des paramètres GET et POST de la requête.
 	    $request = new Request(array_merge($_GET, $_POST));
-	    
 	    $controler = $this->createControler($request);
 	    $action = $this->createAction($request);
-	    
 	    $controler->executeAction($action);
 	}
 	catch (Exception $e) {
@@ -40,7 +39,7 @@ class Rooter {
 	    
 	    // Instanciation du contrôleur adapté à la requête.
 	    require($fileControler);
-	    $controler = new $classControleu();
+	    $controler = new $classControler();
 	    $controler->setRequest($request);
 	    
 	    return $controler;
@@ -48,6 +47,7 @@ class Rooter {
 	else
 	    throw new Exception ("Fichier '$fileControler' introuvable");
     }
+
     
     // Determine l'action à exécuter en fonction de la requête reçue.
     private function createAction(Request $request) {
@@ -59,7 +59,7 @@ class Rooter {
     }
     
     // Gère une erreur d'execution (exception)
-    private function handleError(Exception $exception) {
+    private function generateError(Exception $exception) {
 	$view = new View('error');
 	$view->generate(array('msgError' => $exception->getMessage()));
     }
