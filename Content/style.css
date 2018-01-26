@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    color: #DA528D;
+    background: black;
+    font-family: 'Futura-Medium', 'Futura', 'Trebuchet MS', sans-serif;
+}
+
+h1 {
+    color: #A63F65;
+}
+
+a {
+    color: #3D7363;
+}
+
+.titleBillet {
+    margin-bottom : 0px;
+}
+
+#global {
+    min-height: 100%;  /* Voir commentaire sur html et body plus haut */
+    background: #333534;
+    width: 70%;
+    margin: auto;    /* Permet de centrer la div */
+    text-align: justify;
+    padding: 5px 20px;
+}
+
+#content {
+    margin-bottom : 30px;
+}
+
+#titleBlog, #footerBlog {
+    text-align: center;
+}
+
+#titleReq {
+    font-size : 100%;
+    
+#txtComment {
+    width: 50%;
+}    
+
